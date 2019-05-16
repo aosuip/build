@@ -1864,6 +1864,8 @@ define build-recoveryramdisk
 endef
 else
 define build-recoveryramdisk
+  @echo -e ${CL_GRN}"----- Generating Changelog ------"${CL_RST}
+  $(hide) ./vendor/yodita/tools/changelog.sh
   $(hide) mkdir -p $(TARGET_RECOVERY_OUT)
   $(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/sdcard $(TARGET_RECOVERY_ROOT_OUT)/tmp
   # Copying baseline ramdisk...
