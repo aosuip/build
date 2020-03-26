@@ -406,7 +406,7 @@ endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 	        TARGET_BUILD_FLAVOR="$(TARGET_BUILD_FLAVOR)" \
 	        TARGET_DEVICE="$(TARGET_DEVICE)" \
-	        YODITA_DEVICE="$(TARGET_DEVICE)" \
+	        FLUID_DEVICE="$(TARGET_DEVICE)" \
 	        PRODUCT_NAME="$(TARGET_PRODUCT)" \
 	        PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 	        PRODUCT_DEFAULT_LOCALE="$(call get-default-product-locale,$(PRODUCT_LOCALES))" \
@@ -1865,7 +1865,7 @@ endef
 else
 define build-recoveryramdisk
   @echo -e ${CL_GRN}"----- Generating Changelog ------"${CL_RST}
-  $(hide) ./vendor/yodita/tools/changelog.sh
+  $(hide) ./vendor/fluid/tools/changelog.sh
   $(hide) mkdir -p $(TARGET_RECOVERY_OUT)
   $(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/sdcard $(TARGET_RECOVERY_ROOT_OUT)/tmp
   # Copying baseline ramdisk...
@@ -4279,7 +4279,7 @@ endif
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(YODITA_BUILD),)
+ifneq ($(FLUID_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -4293,14 +4293,14 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	@echo "Package OTA: $@"
 	$(call build-ota-package-target,$@,-k $(KEY_CERT_PAIR) --output_metadata_path $(INTERNAL_OTA_METADATA))
 
-YODITA_TARGET_PACKAGE := $(PRODUCT_OUT)/$(YODITA_MOD_VERSION)-$(TARGET_DEVICE).zip
+FLUID_TARGET_PACKAGE := $(PRODUCT_OUT)/$(FLUID_MOD_VERSION)-$(TARGET_DEVICE).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(YODITA_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(YODITA_TARGET_PACKAGE) > $(YODITA_TARGET_PACKAGE).md5sum
-	@echo "**Package complete"**: $(YODITA_TARGET_PACKAGE)"
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(FLUID_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(FLUID_TARGET_PACKAGE) > $(FLUID_TARGET_PACKAGE).md5sum
+	@echo "**Package complete"**: $(FLUID_TARGET_PACKAGE)"
 
 ifeq ($(BOARD_BUILD_RETROFIT_DYNAMIC_PARTITIONS_OTA_PACKAGE),true)
 name := $(TARGET_PRODUCT)

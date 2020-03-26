@@ -61,6 +61,6 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
   echo "ro.build.thumbprint=$BUILD_THUMBPRINT"
 fi
 
-echo "ro.yodita.device=$YODITA_DEVICE"
+echo "ro.fluid.device=$FLUID_DEVICE"
 
 echo "# end build properties"
