@@ -136,12 +136,12 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^fluid_") ; then
-        FLUID_BUILD=$(echo -n $1 | sed -e 's/^fluid_//g')
+    if (echo -n $1 | grep -q -e "^aosuip_") ; then
+        AOSUIP_BUILD=$(echo -n $1 | sed -e 's/^aosuip_//g')
     else
-        FLUID_BUILD=
+        AOSUIP_BUILD=
     fi
-    export FLUID_BUILD
+    export AOSUIP_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
@@ -1397,7 +1397,7 @@ function fixup_common_out_dir() {
     common_out_dir=$(get_build_var OUT_DIR)/target/common
     target_device=$(get_build_var TARGET_DEVICE)
     common_target_out=common-${target_device}
-    if [ ! -z $FLUID_FIXUP_COMMON_OUT ]; then
+    if [ ! -z $AOSUIP_FIXUP_COMMON_OUT ]; then
         if [ -d ${common_out_dir} ] && [ ! -L ${common_out_dir} ]; then
             mv ${common_out_dir} ${common_out_dir}-${target_device}
             ln -s ${common_target_out} ${common_out_dir}
@@ -1443,7 +1443,7 @@ function breakfast()
                 variant="userdebug"
             fi
 
-            lunch fluid_$target-$variant
+            lunch aosuip_$target-$variant
         fi
     fi
     return $?
